@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('demo:server');
 var http = require('http');
 
+
 /**
  * Get port from environment and store in Express.
  */
@@ -32,6 +33,16 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
+
+
+/*
+  Connection Socket io
+*/
+                  
+var io = require('socket.io')(server);
+io.on('connection',function(socket){
+  console.log("a user connect")
+});
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
@@ -86,5 +97,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+    console.log('listening on '+ addr.port );
   debug('Listening on ' + bind);
 }
