@@ -23,9 +23,7 @@ p {
     text-align: center;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+
 
 .chat-list {
     padding: 0;
