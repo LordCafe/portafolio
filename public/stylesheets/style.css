@@ -23,6 +23,9 @@ p {
     text-align: center;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 .chat-list {
     padding: 0;
@@ -149,4 +152,14 @@ p {
 
 .bullet-green {
     background: #5bcc8b;
+}
+
+.box-chat{
+    height: 400px;
+}
+
+.chat-box-ul{
+    width: auto; 
+    height: 300px; 
+    overflow: auto;
 }

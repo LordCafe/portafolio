@@ -1,23 +1,40 @@
-import React, {Component} from 'react';
-import ReactDOM from  'react-dom';
-
-
-var CustomBuild = new Event('build');
-document.addEventListener("DOMContentLoaded", function(event) {
- 	document.dispatchEvent(CustomBuild);
-});
-// Escucha para el evento.
-document.addEventListener('build', function (e) {
-  console.log("here my custom build ");
-}, false);
-
+import React, { Component, useState } from 'react';
+import ReactDOM from 'react-dom';
+import MessageChannel from './messageChat'
 
 class Root extends Component {
-	render(){
-		return (
-			<h1> hola mundo desde react </h1>
-		);
-	}
+    constructor(props) {
+        super(props);
+        this.chats = [];
+        this.state = {
+            chats: []
+        }
+    }
+
+    componentDidMount() {
+        this.OneChatDemo();
+    }
+
+    OneChatDemo() {
+        if (this.chats.length <= 10) {
+        	let status = ((  this.chats.length % 2) == 0) ? 'in' : 'out';
+            let MoreChat = this.OneChatDemo.bind(this);
+            MessageChannel( status, MoreChat ).then((demoChat)=>{
+            	this.chats.push( demoChat );
+            	this.setState({ chats: this.chats });
+
+            });
+            
+        }
+    }
+
+    render() {
+        return (
+            <ul id='chat-demo-beacon' class="chat-list chat-box-ul" >
+            	{ this.state.chats }	            
+            </ul>
+        );
+    }
 }
 
 let container = document.getElementById('app');
