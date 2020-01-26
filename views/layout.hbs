@@ -1,53 +1,27 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>{{title}}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/example.css' />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
-    {{{body}}}
+    {{> header }}
     <div class="container content">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="card box-chat ">
-                    <div class="card-header">
-                        <div class="header">
-                            <span class="bullet bullet-red"></span>
-                            <span class="bullet bullet-yellow"></span>
-                            <span class="bullet bullet-green"></span>
-                            <span class="title">
-                                Chat...
-                            </span>
-                        </div>
-                    </div>
-                    <div id="app"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <form>
-                    <input id="ResetChat" class="btn btn-primary" type="reset" value="Reset">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
+        {{{body}}}
     </div>
+    {{> footer }}
     <script src="/socket.io/socket.io.js"></script>
     <script>
     document.querySelector("#ResetChat").addEventListener('click', function(e) {
         var event = new CustomEvent("chatDemo", {
             detail: e.target
         });
-
         window.dispatchEvent(event);
-
-
     });
-
-
     var socket = io('http://localhost:4500');
     socket.on('connect', function() {});
     socket.on('event', function(data) {});

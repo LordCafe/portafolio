@@ -1,10 +1,6 @@
 import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { DemoMessage , MessageChannel  } from './messageChat';
-
-
-
-
 class Root extends Component {
     constructor(props) {
         super(props);
