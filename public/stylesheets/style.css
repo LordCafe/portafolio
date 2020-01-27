@@ -175,3 +175,6 @@ p {
     right: 0px;
     top: 0px;
 }
+.Instructions p {
+    text-align: left;
+}
