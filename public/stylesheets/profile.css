@@ -26,7 +26,7 @@
 .presentation {
     background-color: white;
     position: absolute;
-    left:40%;
+    left: 40%;
     top: 20%;
     width: 65%;
     z-index: 30;
@@ -50,7 +50,6 @@
     font-size: 15px;
     font-family: 'Montserrat', sans-serif;
 }
-
 
 .dot {
     height: 5px;
@@ -85,9 +84,7 @@
     display: block;
 }
 
-
 .proyects ul li a {
-
     display: block;
 }
 
@@ -96,7 +93,6 @@
     display: block;
     margin-top: 5px;
 }
-
 
 .proyects ul li span {
     font-size: 15px;
@@ -128,7 +124,7 @@
     position: absolute;
     top: 5%;
     z-index: 15;
-    width:40%;
+    width: 40%;
     left: 45px;
 }
 
@@ -154,7 +150,7 @@
     text-align: center;
 }
 
-.contactos-info > div > i{
+.contactos-info>div>i {
     position: absolute;
     width: 20%;
     text-align: center;
@@ -162,12 +158,89 @@
 
 }
 
-.contactos-info> div > span {
-    position:absolute;
+.contactos-info>div>span {
+    position: absolute;
     width: 80%;
     text-align: left;
-    left:20%;
+    left: 20%;
     font-size: 15px;
     line-height: 25px;
-  
+}
+
+@media(max-width: 700px) {
+
+    body {
+        /*background-color: red;*/
+    }
+
+    .profileImage {
+        border-radius: 0% !important;
+        margin-left: 20%;
+        margin-top: 25px;
+        left: 15%;
+        top: 0px;
+    }
+
+    .presentation {
+        left: 0px;
+        width: 100%;
+        top: 55%;
+        padding: 5px;
+    }
+
+    .hobbys-icons {
+        margin-left: 20%;
+    }
+
+    .presentation>.card-title {
+        text-align: center;
+    }
+
+    .contactos-info>div>span {
+        font-size: 14px;
+        text-align: center;
+        line-height: 17px;
+    }
+
+    .skills {
+        margin-left: 10%;
+    }
+
+    .skillsInfo>div {
+        width: 100%;
+        display: inline;
+        margin-left: 0%;
+    }
+
+    .better-sublist {
+        margin-left: -20px;
+        margin-top: 5px;
+    }
+
+    .better-sublist li {
+        margin-top: 15px;
+    }
+
+    .better-list {
+        margin-left: -40px;
+        margin-top: 5px;
+    }
+
+    .info .better-list li {
+        margin-top: 15px;
+    }
+
+    .project-list {
+        margin-left: -40px;
+        margin-top: 5px;
+    }
+
+    .project-list li {       
+        margin-top: 15px;
+    }
+
+    .proyects p {
+        text-align: left;
+        margin-top: 5px;
+    }
 }
