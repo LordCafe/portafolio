@@ -167,6 +167,12 @@
     line-height: 25px;
 }
 
+
+.info-languajes p {
+    text-align: left;
+    margin-top: 5px;
+}
+
 @media(max-width: 700px) {
 
     body {
@@ -244,8 +250,4 @@
         margin-top: 5px;
     }
 
-    .info-languajes p {
-        text-align: left;
-        margin-top: 5px;
-    }
 }
