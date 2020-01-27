@@ -175,10 +175,6 @@
 
 @media(max-width: 700px) {
 
-    body {
-        /*background-color: red;*/
-    }
-
     .profileImage {
         border-radius: 0% !important;
         margin-left: 20%;

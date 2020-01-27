@@ -10,8 +10,7 @@
 let CreateDots = (target, loop, color ) => {
     let DomGraph = document.createElement('div');
     let span = document.createElement('span');
-    span.classList.add('dot');  
-    //DomGraph.appendChild(span);
+    span.classList.add('dot');    
     for (var i = loop - 1; i >= 0; i--) {
         color --;
         let NewSpan = span.cloneNode(true)
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         DomSkill.innerHTML = skill;
         data.appendChild(DomSkill);
         let dots = CreateDots(data, 5, good);
-
     });
 
 });

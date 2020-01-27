@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Lord cafe' });
 });
 
+
+router.get('/chatdemo', function(req, res, next) {
+  res.render('index', { title: 'Lord cafe' });
+});
 module.exports = router;

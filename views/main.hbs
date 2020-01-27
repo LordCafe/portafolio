@@ -8,29 +8,15 @@
         <link rel='stylesheet' href='/stylesheets/profile.css' />
     <link rel='stylesheet' href='/stylesheets/example.css' />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
 </head>
 
 <body>
     {{> header }}
     <div class="container content">
-        {{{body}}}
-       
+        {{{body}}}       
     </div>
     {{> footer }}
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-    document.querySelector("#ResetChat").addEventListener('click', function(e) {
-        var event = new CustomEvent("chatDemo", {
-            detail: e.target
-        });
-        window.dispatchEvent(event);
-    });
-    var socket = io('http://localhost:4500');
-    socket.on('connect', function() {});
-    socket.on('event', function(data) {});
-    socket.on('disconnect', function() {});
-    </script>
+    
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
