@@ -39,10 +39,12 @@ server.on('listening', onListening);
   Connection Socket io
 */
                   
-var io = require('socket.io')(server);
-io.on('connection',function(socket){
-  console.log("a user connect")
-});
+//var io = require('socket.io')(server);
+//io.on('connection',function(socket){
+  
+
+  //console.log("a user connect")
+//});
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
