@@ -8,6 +8,6 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/chatdemo', function(req, res, next) {
-  res.render('index', { title: 'Lord cafe' });
+  res.render('chat', { title: 'Lord cafe' });
 });
 module.exports = router;
