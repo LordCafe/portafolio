@@ -94,7 +94,7 @@ p {
 }
 
 .chat-list .in .chat-message:before {
-    left: -12px;
+    left: -5px;
     border-bottom: 20px solid transparent;
     border-right: 20px solid #5a99ee;
 }
@@ -114,7 +114,7 @@ p {
 }
 
 .chat-list .out .chat-message:before {
-    right: -12px;
+    right: -5px;
     border-bottom: 20px solid transparent;
     border-left: 20px solid #fc6d4c;
 }
@@ -168,4 +168,10 @@ p {
     width: auto; 
     height: 300px; 
     overflow: auto;
+}
+
+.oneDemoChat{
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
