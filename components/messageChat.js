@@ -12,11 +12,8 @@ function GetBaccon() {
 }
 
 function scroll() {
-
     var messageBody = document.querySelector('#chat-demo-beacon')
     .scrollTo(0, 1000);
-    //messageBody.scrollTop = messageBody.scrollHeight;
-
 }
 
 let MessageChannel = ({ status = 'in', demo, message }) => {
@@ -69,8 +66,6 @@ let MessageChannel = ({ status = 'in', demo, message }) => {
     </Container>
     );
 }
-
-
 let DemoMessage = ((status = 'in', demo) => {
     return GetBaccon().then((message) => {
         return <MessageChannel  status ={status} demo={ demo } message={ message  } />
