@@ -178,3 +178,13 @@ p {
 .Instructions p {
     text-align: left;
 }
+
+.navbar-dark .navbar-brand{
+    font-size: 18px;
+}
+
+.navbar-collapse{
+    background-color:#343a40!important;
+    z-index: 1000;
+    text-align: center;
+}
