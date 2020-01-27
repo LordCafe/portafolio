@@ -235,11 +235,16 @@
         margin-top: 5px;
     }
 
-    .project-list li {       
+    .project-list li {
         margin-top: 15px;
     }
 
     .proyects p {
+        text-align: left;
+        margin-top: 5px;
+    }
+
+    .info-languajes p {
         text-align: left;
         margin-top: 5px;
     }
