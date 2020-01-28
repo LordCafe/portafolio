@@ -1,0 +1,51 @@
+<div id="App"></div>
+<script type="text/javascript" src="/javascripts/youtube/main.js"></script>
+<form id="searchYoutube">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Seacrh</label>
+        <input type="text" class="form-control" id="SearchText">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<script>
+var keyYoutube = 'AIzaSyBr5J44lR8SxT1kxp-o3rtKPZ8U17SAh-c';
+
+
+function init() {
+    gapi.client.setApiKey(keyYoutube);
+    gapi.client.load("youtube", "v3", function() { // yt api is ready
+
+        console.log("Ready api youtube")
+    });
+}
+
+/*var request = gapi.client.youtube.search.list({
+    part: "snippet",
+    type: "video",
+    q:"" ,
+    maxResults: 3,
+    order: "viewCount",
+    publishedAfter: "2015-01-01T00:00:00Z"
+});
+
+*/
+document.querySelector("#searchYoutube").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let text = document.querySelector("#SearchText").value;
+    let request = gapi.client.youtube.search.list({
+        part: "snippet",
+        type: "video",
+        q: text.replace(/%20/g, "+"),
+        maxResults: 3,
+        order: "viewCount",
+        publishedAfter: "2015-01-01T00:00:00Z"
+    });
+
+    request.execute((response)=>{
+    	 console.log(response);
+
+    });
+});
+</script>
+<script src="https://apis.google.com/js/client.js?onload=init"></script>

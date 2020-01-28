@@ -10,4 +10,9 @@ router.get('/', function(req, res, next) {
 router.get('/chatdemo', function(req, res, next) {
   res.render('chat', { title: 'Lord cafe' });
 });
+
+
+router.get('/youtube', function(req, res, next) {
+  res.render('youtube', { title: 'Lord cafe' });
+});
 module.exports = router;
