@@ -3,47 +3,67 @@ import ReactDOM from 'react-dom';
 
 
 class Youtube extends Component {
+    constructor(props) {
+        super(props);
+        this.thumbnails = [];
+        this.state = { videos: [] };
+    }
+
+    componentDidMount() {
+        window.addEventListener('Search', (e) => {
+            this.makeList(e.detail);
+
+        });
+    }
 
 
-	componentDidMount(){
+    makeList(list) {
 
-		window.addEventListener('SEarch');
-	}
+        let thumbnails = Array.from(list).map((data, index) => {
+            return this.thumbnail(data.snippet);
+        });
+        this.setState((state, props) => {
+            return { videos: thumbnails };
+        });
 
 
-
+    }
 
     messageError({ message }) {
         return (
             <div class="alert alert-danger" role="alert">
-  				<h4 class="alert-heading">Error</h4>
-  				<p>{message}</p>
-  				<p class="mb-0"></p>
-			</div>
+                <h4 class="alert-heading">Error</h4>
+                <p>{message}</p>
+                <p class="mb-0"></p>
+            </div>
 
         );
     }
 
-    thumbnail({thumbnail, title , description }) {
+    thumbnail({ thumbnails, title, description }) {
+        console.log( thumbnails );
         return (
-            <li class="col-lg-3 col-sm-4 col-xs-6">
-		<a href="#" title={title }>
-			<img src={ thumbnail.default.url} alt="Barca" class="img-responsive"  />
-			<h2>{title}</h2>
-			<span class="glyphicon glyphicon-play-circle"></span>
-			<span class="duration">03:15</span>
-		</a>
-	</li>
+            <li class="thumbnail-video">
+            <div class="thumbnail">
+                <div class="flex-video widescreen ">
+                <img src={thumbnails.medium.url } class="img-thumbnail"  alt="Responsive image" />
+                </div>
+              <div class="caption">
+                <h3>{ title }</h3>
+                <p>{ description }</p>
+                <p></p>
+              </div>
+            </div>
+          </li>
 
         );
     }
 
     render() {
         return (
-            <ul class="list-unstyled video-list-thumbs row">
-	
-	
-</ul>
+            <ul class="row list-search-youtube">
+            { this.state.videos }
+            </ul>
         )
     }
 }
