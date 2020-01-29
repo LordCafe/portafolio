@@ -29,13 +29,13 @@ class Youtube extends Component {
     thumbnail(data, { thumbnails, title, description }) {
         return (
             <li class="thumbnail-video">
-            <div class="thumbnail row ">
-                <div class="flex-video widescreen col-6 ">
-                <img src={thumbnails.medium.url } class="img-thumbnail"  alt="Responsive image" onClick={()=>{              
+            <div class="thumbnail row "  onClick={()=>{              
                      this.setState((state, props) => {                    
                      return { currentId: data.id.videoId , datavideo : data  };
                   });
                 }}/>
+                <div class="flex-video widescreen col-6 ">
+                <img src={thumbnails.medium.url } class="img-thumbnail"  alt="Responsive image" />
                 </div>
               <div class="caption col-6 description-list ">
                 <span className={'title-video-list'}>{ title }</span>               
