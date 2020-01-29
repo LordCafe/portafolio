@@ -24,7 +24,17 @@ p {
 }
 
 
-.footer {}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+}
 
 .semitransparant {
     background: rgba(0, 0, 0, 0.5);
@@ -188,4 +198,3 @@ p {
     z-index: 1000;
     text-align: center;
 }
-
