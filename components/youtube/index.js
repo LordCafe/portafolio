@@ -6,11 +6,13 @@ class Youtube extends Component {
     constructor(props) {
         super(props);
         this.thumbnails = [];
+        this.createAListEvent = false;
         this.state = { videos: [], currentId: false, datavideo: {} };
     }
 
     componentDidMount() {
         window.addEventListener('Search', (e) => {
+            this.createAListEvent = true;
             this.makeList(e.detail);
         });
     }
@@ -50,9 +52,16 @@ class Youtube extends Component {
     }
 
     componentDidUpdate(){
-        let element = document.querySelector("#searchYoutube");
-        if(element){
-            window.scrollTo(0, element.offsetTop);
+        let iframeVideo = document.querySelector("#searchYoutube");
+        let ListVideos = document.querySelector(".list-search-youtube");
+
+        if( iframeVideo && this.createAListEvent === false){           
+            iframeVideo.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        }
+
+        if(ListVideos && this.createAListEvent === true ){
+            ListVideos.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+            this.createAListEvent = false;
         }
         
     }
