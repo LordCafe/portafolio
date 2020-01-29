@@ -44,9 +44,7 @@ class Youtube extends Component {
         );
     }
 
-    iframevideo(id) {
-
-        
+    iframevideo(id) {        
         return (<iframe id="video-embed" class="embed-responsive-item" src={`https://www.youtube.com/embed/${id}`}
             ></iframe>);
     }
