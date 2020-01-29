@@ -7,14 +7,32 @@ class Youtube extends Component {
         super(props);
         this.thumbnails = [];
         this.createAListEvent = false;
-        this.state = { videos: [], currentId: false, datavideo: {} };
+        this.state = { videos: [], currentId: false, datavideo: {}, StatusError: false };
     }
 
     componentDidMount() {
         window.addEventListener('Search', (e) => {
             this.createAListEvent = true;
-            this.makeList(e.detail);
+            if (e.detail) {
+                this.makeList(e.detail);
+            }
         });
+        window.addEventListener('ReportError', (e) => {
+
+            this.setState((state, props) => {
+                return { StatusError: true ,datavideo : e.detail };
+            });
+        });
+    }
+
+    error(message) {
+        console.log( this.state.datavideo );
+
+        return (
+            <div class="alert alert-danger" role="alert">
+               <div dangerouslySetInnerHTML={{ __html: this.state.datavideo.message }} />
+            </div>
+        );
     }
 
     makeList(list) {
@@ -47,24 +65,24 @@ class Youtube extends Component {
         );
     }
 
-    iframevideo(id) {        
+    iframevideo(id) {
         return (<iframe id="video-embed" class="embed-responsive-item" src={`https://www.youtube.com/embed/${id}`}
             ></iframe>);
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         let iframeVideo = document.querySelector("#searchYoutube");
         let ListVideos = document.querySelector(".list-search-youtube");
 
-        if( iframeVideo && this.createAListEvent === false){           
-            iframeVideo.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        if (iframeVideo && this.createAListEvent === false) {
+            iframeVideo.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
         }
 
-        if(ListVideos && this.createAListEvent === true ){
-            ListVideos.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        if (ListVideos && this.createAListEvent === true) {
+            ListVideos.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
             this.createAListEvent = false;
         }
-        
+
     }
 
 
@@ -82,11 +100,10 @@ class Youtube extends Component {
         );
     }
 
-    render() {
-        return (
-            <div class=" AppYoutube">
-              <div class="row">
-                   
+
+    ProgressYoutube() {
+
+        return (<div class="row">                   
                     <div class=" col-12  col-md-8">
                          {this.PlayerYoutube(this.state.currentId, this.state.datavideo)}    
                     </div>
@@ -95,10 +112,16 @@ class Youtube extends Component {
                             { this.state.videos }           
                           </ul>    
                     </div>  
-              </div>
+              </div>);
+    }
+
+    render() {
+        let result = (this.state.StatusError) ? this.error() : this.ProgressYoutube();
+        console.log(result);
+        return (
+            <div class=" AppYoutube">
+             { result}
             </div>
-
-
         )
     }
 }

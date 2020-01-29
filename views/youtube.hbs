@@ -6,7 +6,6 @@
     </div>
 </form>
 <div id="App"></div>
-
 <script>
 var keyYoutube = 'AIzaSyBr5J44lR8SxT1kxp-o3rtKPZ8U17SAh-c';
 
@@ -29,10 +28,21 @@ document.querySelector("#searchYoutube").addEventListener("submit", function(e) 
     });
 
     request.execute((response) => {
-        var event = new CustomEvent("Search", {
-            detail: response.items
-        });
-        window.dispatchEvent(event);
+        if (response.code === 403) {
+
+            var event = new CustomEvent("ReportError", {
+                detail: response
+            });
+            window.dispatchEvent(event);
+        }
+
+        if (response.code !== 403) {
+            var event = new CustomEvent("Search", {
+                detail: response.items
+            });
+            window.dispatchEvent(event);
+        }
+
     });
 });
 </script>
