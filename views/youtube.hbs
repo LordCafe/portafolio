@@ -1,18 +1,14 @@
-
-
 <form id="searchYoutube">
     <div class="form-group">
-        <label for="exampleInputEmail1">Seacrh</label>
+        <label for="exampleInputEmail1">Write like you wish...</label>
         <input type="text" class="form-control" id="SearchText">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <small id="emailHelp" class="form-text text-muted">Press enter for search</small>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
 <div id="App"></div>
+
 <script>
 var keyYoutube = 'AIzaSyBr5J44lR8SxT1kxp-o3rtKPZ8U17SAh-c';
-
 
 function init() {
     gapi.client.setApiKey(keyYoutube);
@@ -20,8 +16,6 @@ function init() {
         console.log("Ready api youtube")
     });
 }
-
-
 document.querySelector("#searchYoutube").addEventListener("submit", function(e) {
     e.preventDefault();
     let text = document.querySelector("#SearchText").value;
@@ -33,7 +27,6 @@ document.querySelector("#searchYoutube").addEventListener("submit", function(e) 
         order: "viewCount",
         publishedAfter: "2015-01-01T00:00:00Z"
     });
-
 
     request.execute((response) => {
         var event = new CustomEvent("Search", {

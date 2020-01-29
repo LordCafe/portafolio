@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build-app": " webpack --config webpack.config.js"
+    "build-app": " webpack --config webpack.config.js",
+    "youtubeApp": " webpack --config youtube.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.8.3",

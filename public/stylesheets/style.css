@@ -189,24 +189,3 @@ p {
     text-align: center;
 }
 
-
-.list-search-youtube {
-    display: inline-block;
-}
-
-
-.thumbnail-video {
-    height: 200px;
-    width: 300px;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.thumbnail-video > .thumbnail > .caption > h3{
-    font-size: 10px;
-    color:red;
-}
-
-.widescreen>.img-thumbnail {
-    width: 100%;
-}
