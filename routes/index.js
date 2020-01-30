@@ -15,4 +15,9 @@ router.get('/chatdemo', function(req, res, next) {
 router.get('/youtube', function(req, res, next) {
   res.render('youtube', { title: 'Lord cafe' });
 });
+
+
+router.get('/newsapi', function(req, res, next) {
+  res.render('newsapi', { title: 'Lord cafe' });
+});
 module.exports = router;

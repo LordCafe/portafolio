@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "build-app": " webpack --config webpack.config.js",
-    "youtubeApp": " webpack --config youtube.config.js"
+    "youtubeApp": " webpack --config youtube.config.js",
+    "NewsApp": " webpack --config newApi.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.8.3",
