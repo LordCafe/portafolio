@@ -1,0 +1,29 @@
+.newsapiImage{
+	height: 80%;
+	width: 80%;
+}
+
+.newsapi-card{
+	margin: 0px;
+	padding: 0px;
+}
+
+.newsapiImage > img{
+	height: 200px;
+	width: 350px;
+}
+.NewsApi-buttons{
+	margin: 5px;
+}
+
+.NewsApi-buttons a{
+	background-color: red;
+	margin-left: 50px;
+	margin-right: 50px;
+
+	
+}
+
+.newsapi-title{
+	font-size: 12px;
+}
