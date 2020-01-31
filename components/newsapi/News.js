@@ -36,10 +36,10 @@ let NewsMayor = ({ title, content, author, url, urlToImage }) => {
 
 
 
-let BigNew= ({author,content,title,urlToImage, url, description }) => {
-
+let BigNew= ({author,content,title,urlToImage, url, description }, status) => {
+	status();
     return (
-        <div class="container">
+        <div class="container demo-position">
 			<div class="row">
 				    <div class="col-sm-4">
 						<div class="news">
@@ -74,15 +74,22 @@ let BigNew= ({author,content,title,urlToImage, url, description }) => {
 function Page( {showBigNews, currrentNews = {}} ) {
     const [inProp, setInProp] = useState(false);
     let classEfect =  'pageSliderLeft';
+    let NoEmpty = (Object.keys(currrentNews).length > 0);
+    let News = ( NoEmpty  === true ) ? BigNew(currrentNews, ()=>{
+    	if(inProp === false ){
+    		setInProp(true);	
+    	}
+    	
+    }) : (<div>demo</div>);
+
+    
     return (
-        <div className={'demo-position'}>
-      <CSSTransition in={inProp} timeout={200} classNames={ classEfect }>
-			{BigNew(currrentNews)}        
-      </CSSTransition>
-      <button type="button" onClick={() => setInProp(!inProp)}>
-        Click to Enter
-      </button>
-    </div>
+        <div>
+		    <CSSTransition in={inProp} timeout={200} classNames={ classEfect }>
+		      		{  News }        
+		    </CSSTransition>
+     
+    	</div>
     );
 }
 
