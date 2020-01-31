@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ReactDOM from 'react-dom';
-import {News,NewsMayor} from './News'
+import { News, NewsMayor, Page } from './News'
 
 var key = "62d5413f833d4aa7808879f311bfeff7";
 class NewsApi extends Component {
@@ -10,9 +10,13 @@ class NewsApi extends Component {
         this.state = {
             News: [],
             controlButtons: false,
+            'showBigNews': false,
+            'CurrentNews':[]
         }
+
+        this.democlick = 'DEMOCLICK';
     }
-    
+
     ControlsStatusResquest() {
         let urlApiNewsApi = "https://newsapi.org/v2/top-headlines?country=us&apiKey=62d5413f833d4aa7808879f311bfeff7";
         this.setState((state, props) => {
@@ -22,9 +26,13 @@ class NewsApi extends Component {
             return server.json();
         }).then((data) => {
             return data.articles.map((data, index) => {
+                data.click = () => {
+                    this.setState((state, props) => {
+                        return { 'showBigNews': true , currrentNews: data };
+                    });
+                }
                 return <News {...data} />
-                             
-                 
+
             });
         }).then((news) => {
             this.setState((state, props) => {
@@ -55,7 +63,7 @@ class NewsApi extends Component {
                 <div className={'row'}>
                     {this.state.News}
                 </div>
-             
+             <Page { ...this.state } />
             </div>
         )
     }

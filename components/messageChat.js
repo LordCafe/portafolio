@@ -13,7 +13,7 @@ function GetBaccon() {
 
 function scroll() {
     var messageBody = document.querySelector('#chat-demo-beacon')
-    .scrollTo(0, 1000);
+        .scrollTo(0, 1000);
 }
 
 let MessageChannel = ({ status = 'in', demo, message }) => {
@@ -21,7 +21,7 @@ let MessageChannel = ({ status = 'in', demo, message }) => {
     const [showMessage, setShowMessage] = useState(false);
     let imgAvatar = (status == 'in') ? imgIn : imgOut;
     let nameUser = (status == 'in') ? 'Jimmy Williams' : 'Jenny anna';
-    let position = (status == 'in') ? 'float-left' : 'float-right';   
+    let position = (status == 'in') ? 'float-left' : 'float-right';
     setTimeout(() => {
         setShowMessage(true);
     }, 1500);
@@ -73,4 +73,4 @@ let DemoMessage = ((status = 'in', demo) => {
 });
 
 
-export { DemoMessage , MessageChannel  };
+export { DemoMessage, MessageChannel };
