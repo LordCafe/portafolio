@@ -3,17 +3,18 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 let News = ({ title, content, author, url, urlToImage, click }) => {
-    return (
-        <div class='col-12 col-md-4 newsapi-card'>                
-                <a href={ url } onClick={(e)=>{ 
-                    e.preventDefault();
-                    click();                    
+    let action =(e)=>{
+         e.preventDefault();
+         click();
+     };
 
-                }} >
-                    <div class="card newsapiImage ">
-                      <img class="card-img-top " src={urlToImage} alt="Card image cap"/>
-                          <div class="wrapper-title card-body transparency colorBlack"></div>
-                          <h5 class="card-title newsapi-title">{title}</h5>
+
+    return (
+        <div class='col-12 col-md-4 newscard '  style={{ display: 'inline-block'}} >                
+                <a href={ url } onClick={  action }  >
+                    <div >                      
+                        <div class="wrapper-title card-body transparency colorBlack"></div>
+                         <span class="card-title newsapi-title">{title}</span>                       
                     </div>
                 </a>
         </div>
@@ -24,7 +25,7 @@ let News = ({ title, content, author, url, urlToImage, click }) => {
 
 let NewsMayor = ({ title, content, author, url, urlToImage }) => {
     return (
-        <div class=' newsapi-card-mayor'>               
+        <div class=' newsapi-card-mayor shadow-none '>               
             <div class="card newsapiImage ">
                 <img class="card-img-top " src={urlToImage} alt="Card image cap"/>                          
                 <div class="wrapper-title card-body transparency colorBlack"></div>
@@ -48,7 +49,16 @@ let disableOverlay = (event, setOverlay, updater) => {
         console.log("No update", event.target );
     }
 }
-
+let realContent =(author, disableBigNews )=>{
+    return(
+            <div className={'row nav-bignews'}>
+                <div className={'col-10  author '}>{author}</div>
+                <div className={'col-2 btn-group '}>
+                    <button type="button" class="btn btn-warning"  data-closed={ true } onClick={disableBigNews} >X</button>
+                </div>                                         
+            </div>
+    );
+}
 
 let BigNew = (props, setOverlay, updater) => {
     let { author, content, title, urlToImage, url, description } = props.state.CurrentNews;
@@ -57,38 +67,21 @@ let BigNew = (props, setOverlay, updater) => {
     };
     return (
         <div id="overlay" class="container overlay ">
-            <div class="row ">
-                    <div class="col-12" align="center" data-closed={ true } onClick={disableBigNews}>                 
-                        <div class="bigNew">                   
-                        <div className={'row nav-bignews'}>                           
-                            <div className={'col-8  btn-group author '}>
-                                {author}
+            <div className={'row big-news'}>
+                    <div className={'col-12'} data-closed={ true } onClick={disableBigNews}>                 
+                        <div class="bigNew">
+                        {realContent(author, disableBigNews)}
+                        <div class="img-figure">                                                              
+                            <div class="card  ">
+                                <img class="card-img-top bigNews-Img " src={urlToImage} alt="Card image cap"/>        
                             </div>
-
-                            <div className={'col-2 btn-group '}>
-                             
-                            </div>
-
-                            <div className={'col-1 btn-group '}>
-                               <button type="button" class="btn btn-warning">X</button>
-                            </div>
-                         </div>                            
-                            <div class="img-figure">                                                              
-                                <div class="card  ">
-                                    <img class="card-img-top bigNews-Img " src={urlToImage} alt="Card image cap"/>        
-                                </div>
-                            </div>
-
-                            <div class="title">
-                                <h1>{ title }</h1>
-                            </div>
-                            <p class="description">{ description }</p>
-                            <div className={'col-8'}>{author}</div>
-                            <p class="more">
-                                <a href={ url }>read more</a><i class="fa fa-angle-right" aria-hidden="true"></i>
-                               
-                            </p>
                         </div>
+
+                        <div>
+                            <div className={'title-article'}>{ title }</div>
+                            <div className={"description"}><p>{ description }</p></div>
+                        </div>
+                        </div>                       
                     </div>
             </div>
         </div>
@@ -102,13 +95,23 @@ function Page({ props, updater }) {
     if (props.state.showBigNews && StatusOverlay === false) {
         setOverlay(true);
     }
+
+    let beginEffect = (e)=>{
+         document.documentElement.style.overflow = 'hidden';
+    }
+
+    let removeEfectt = (e)=>{
+        e.classList.toggle("effect-active");
+         document.documentElement.style.overflow = 'auto'; 
+    }
     return (
         <div  >
             <CSSTransition in={ StatusOverlay } 
                  timeout={ 350 }
                  classNames={ classEfect } 
                  data-status={ StatusOverlay }
-                 onExited={(e) => e.classList.toggle("effect-active")}
+                 onEntered={ beginEffect}
+                 onExited={ removeEfectt }
              >
              {  BigNew( props, setOverlay, updater  ) }        
             </CSSTransition>     

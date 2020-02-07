@@ -7,7 +7,9 @@ module.exports = {
     path: path.resolve(__dirname, 'public/javascripts/newsapi'),
     filename: '[name].js'
   },
+  devtool: 'source-map',
   module: {
+
     rules: [
       {
         test: /\.js$/,

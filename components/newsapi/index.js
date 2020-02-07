@@ -11,9 +11,8 @@ class NewsApi extends Component {
             News: [],
             controlButtons: false,
             'showBigNews': false,
-            'CurrentNews':[]
+            'CurrentNews': []
         }
-
         this.democlick = 'DEMOCLICK';
     }
 
@@ -25,14 +24,18 @@ class NewsApi extends Component {
         fetch(urlApiNewsApi).then((server) => {
             return server.json();
         }).then((data) => {
+            let time = 500;
             return data.articles.map((data, index) => {
                 data.click = () => {
                     this.setState((state, props) => {
-                        return { 'showBigNews': true , CurrentNews: data };
+                        return { 'showBigNews': true, CurrentNews: data };
                     });
                 }
-                return <News {...data} />
-
+                time = time + 50;
+                return  <CSSTransition key={index} timeout={time} classNames="item">
+                            <News {...data} />
+                        </CSSTransition>
+                 
             });
         }).then((news) => {
             this.setState((state, props) => {
@@ -42,38 +45,66 @@ class NewsApi extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-      console.log( this.state.showBigNews , 'Show big ');
+        console.log(this.state.showBigNews, 'Show big ');
     }
 
-    
-    SetBigNews( status = false, callback =()=>{}){
+
+    SetBigNews(status = false, callback = () => {}) {
         this.setState((state, props) => {
             return { 'showBigNews': status };
-        },callback);
+        }, callback);
     }
-
     
-    render() {
-        let Loading = (this.state.controlButtons) ? 'block' : 'none';
-        let Buttons = (!this.state.controlButtons) ? 'block' : 'none';
+    Loading(){
+     
+        return( 
+                <div class="spinner-grow customSpiner" role="status">
+                        <span class="sr-only">Loading...</span>
+                </div>
+            );
+    }
+    buttonApi() { 
+        let Buttons = (!this.state.controlButtons) ? 'Solicitar noticias': this.Loading();
         let controsl = this.ControlsStatusResquest.bind(this);
         return (
-            <div class="NewsApi">
-                <div class=" NewsApi-buttons">
-                    <a class="btn btn-primary" target="_blanck" href="https://newsapi.org/" role="button">powered by NewsAPI.org</a>
+            <div className={'NewsApi-buttons'}>                   
                     <button 
                         type="button" 
-                        class="btn btn-warning"
-                        style={{ display:  Buttons }} 
+                        class="btn"
+                        style={{  color: "#61dafb",'border-color': "#61dafb"} } 
                         onClick={controsl}
-                    >Solicitar noticías</button>               
-                    <div class="spinner-grow" style={{width: "3rem", height: "3rem", display: Loading }} role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>   
-                <div className={'row'}>
-                    {this.state.News}
+                    >                  
+                     {Buttons}
+                    </button>
+
+                    <button 
+                        type="button" 
+                        class="btn"
+                        style={{  color: "#61dafb",'border-color': "#61dafb"} } 
+                        onClick={()=>{
+                            this.setState((state, props) => {
+                                    return { News:[]};
+                            });
+                        }}
+                    >                  
+                    Clean 
+                    </button>                               
+                     <a target="_blanck" href="https://newsapi.org/" role="button">powered by NewsAPI.org</a>
                 </div>
+        );
+    }
+    render() {
+
+        return (
+            <div class="NewsApi">
+                <div className={'region-buttons '}>
+                    {this.buttonApi()}
+                </div>
+         
+                <TransitionGroup className="todo-list  row">
+                    {this.state.News}
+                 </TransitionGroup>    
+            
              <Page props={this} updater={this.SetBigNews.bind(this)}  />
             </div>
         )

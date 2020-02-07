@@ -8,6 +8,8 @@ module.exports = {
     filename: '[name].js'
   },
   module: {
+    mode: 'development',
+    devtool: 'source-map',
     rules: [
       {
         test: /\.js$/,
