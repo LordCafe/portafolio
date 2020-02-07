@@ -28,7 +28,7 @@ class NewsApi extends Component {
             return data.articles.map((data, index) => {
                 data.click = () => {
                     this.setState((state, props) => {
-                        return { 'showBigNews': true , currrentNews: data };
+                        return { 'showBigNews': true , CurrentNews: data };
                     });
                 }
                 return <News {...data} />
@@ -41,7 +41,18 @@ class NewsApi extends Component {
         });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+      console.log( this.state.showBigNews , 'Show big ');
+    }
 
+    
+    SetBigNews( status = false, callback =()=>{}){
+        this.setState((state, props) => {
+            return { 'showBigNews': status };
+        },callback);
+    }
+
+    
     render() {
         let Loading = (this.state.controlButtons) ? 'block' : 'none';
         let Buttons = (!this.state.controlButtons) ? 'block' : 'none';
@@ -63,7 +74,7 @@ class NewsApi extends Component {
                 <div className={'row'}>
                     {this.state.News}
                 </div>
-             <Page { ...this.state } />
+             <Page props={this} updater={this.SetBigNews.bind(this)}  />
             </div>
         )
     }
