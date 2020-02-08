@@ -12,7 +12,7 @@ let News = ({ title, content, author, url, urlToImage, click }) => {
     return (
         <div class='col-12 col-md-4 newscard '  style={{ display: 'inline-block'}} >                
                 <a href={ url } onClick={  action } style={{ width: '100%'}} >
-                    <div >
+                    <div className={'NewsContent'}>
                         <div className={'card'}>
                              <img class="card-img-top " src={urlToImage} alt="Card image cap"/>
                         </div>

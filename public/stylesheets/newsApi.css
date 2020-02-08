@@ -1,8 +1,15 @@
 .newscard{
-    display: relative;
+  
     height: 300px;
-    margin:0;
+    margin-top:10px;
     padding: 0;
+}
+
+.NewsContent{
+    width: 80%;
+    margin-left: 10%;
+    position: relative;
+    margin-top: 5px;
 }
 
 .card-img-top {
