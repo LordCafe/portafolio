@@ -1,111 +1,82 @@
 import React, { Component, useState } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ReactDOM from 'react-dom';
-import { News, NewsMayor, Page } from './News'
+import { NewsApiResquest, NewsArticle, ModalPop } from './News';
 
-var key = "62d5413f833d4aa7808879f311bfeff7";
 class NewsApi extends Component {
     constructor(props) {
         super(props);
         this.state = {
             News: [],
-            controlButtons: false,
-            'showBigNews': false,
-            'CurrentNews': []
-        }
-        this.democlick = 'DEMOCLICK';
+            CurrentNews: [],
+            showModal: false,
+           
+        };
+        this.range = 4;
+        this.AllNews = [];
     }
 
-    ControlsStatusResquest() {
-        let urlApiNewsApi = "https://newsapi.org/v2/top-headlines?country=us&apiKey=62d5413f833d4aa7808879f311bfeff7";
+    CreateNews(item, index ) {
+        return <CSSTransition key={index} timeout={500} classNames="item">
+                    <div className={` col-12 col-sm-${this.range }`}>
+                        <NewsArticle {...item }  updater={this.UpdateCurrentNews.bind(this)}  />
+                    </div>
+                 </CSSTransition>
+    }
+
+    UpdateNews(news = []) {
         this.setState((state, props) => {
-            return { controlButtons: !this.state.controlButtons };
-        })
-        fetch(urlApiNewsApi).then((server) => {
-            return server.json();
-        }).then((data) => {
-            let time = 500;
-            return data.articles.map((data, index) => {
-                data.click = () => {
-                    this.setState((state, props) => {
-                        return { 'showBigNews': true, CurrentNews: data };
-                    });
-                }
-                time = time + 50;
-                return  <CSSTransition key={index} timeout={time} classNames="item">
-                            <News {...data} />
-                        </CSSTransition>
-                 
-            });
-        }).then((news) => {
-            this.setState((state, props) => {
-                return { News: news, controlButtons: !this.state.controlButtons };
-            });
+            return { News: news };
+        });
+    }
+    UpdateCurrentNews(news, status) {
+        this.setState((state, props) => {
+            return { CurrentNews: news, showModal: status };
         });
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        console.log(this.state.showBigNews, 'Show big ');
+    ResquestApi(e) {
+        NewsApiResquest().then((data) => {
+            return data.articles;
+        }).then((infoApi) => {
+            this.AllNews = infoApi;
+            return this.AllNews.map(this.CreateNews.bind(this));
+        }).then(this.UpdateNews.bind(this))
+    }
+
+    componentDidUpdate(prevProps, prevState = {}, snapshot) {
+
+    }
+
+    updateRange(e){
+        this.range = e.target.value;
+
+        this.setState((state, props )=>{            
+            return{ News : this.AllNews.map(this.CreateNews.bind(this))}
+        })
+       
     }
 
 
-    SetBigNews(status = false, callback = () => {}) {
-        this.setState((state, props) => {
-            return { 'showBigNews': status };
-        }, callback);
-    }
-    
-    Loading(){
-     
-        return( 
-                <div class="spinner-grow customSpiner" role="status">
-                        <span class="sr-only">Loading...</span>
-                </div>
-            );
-    }
-    buttonApi() { 
-        let Buttons = (!this.state.controlButtons) ? 'Solicitar noticias': this.Loading();
-        let controsl = this.ControlsStatusResquest.bind(this);
-        return (
-            <div className={'NewsApi-buttons'}>                   
-                    <button 
-                        type="button" 
-                        class="btn"
-                        style={{  color: "#61dafb",'border-color': "#61dafb"} } 
-                        onClick={controsl}
-                    >                  
-                     {Buttons}
-                    </button>
-
-                    <button 
-                        type="button" 
-                        class="btn"
-                        style={{  color: "#61dafb",'border-color': "#61dafb"} } 
-                        onClick={()=>{
-                            this.setState((state, props) => {
-                                    return { News:[]};
-                            });
-                        }}
-                    >                  
-                    Clean 
-                    </button>                               
-                     <a target="_blanck" href="https://newsapi.org/" role="button">powered by NewsAPI.org</a>
-                </div>
-        );
-    }
     render() {
-
         return (
-            <div class="NewsApi">
-                <div className={'region-buttons '}>
-                    {this.buttonApi()}
-                </div>
-         
-                <TransitionGroup className="todo-list  row">
+            <div className={"NewsApi"}>
+               <ModalPop Current={this.state.CurrentNews } showModal={this.state.showModal } control={this.UpdateCurrentNews.bind(this)} />
+                <div className={'region-buttons'}>                
+                    <button type="button" class="btn " onClick={ this.ResquestApi.bind(this)} >Resquest On Api News </button> 
+                    <button type="button" class="btn " onClick={()=>{ this.UpdateNews([])}}>Clean all news</button>
+                    <div class="slidecontainer">
+                       <label className={"font-Quick"} for="myRange">Numeros de columnas : {  (12 / this.range).toFixed(2)  }</label>                
+                       <input type="range" onChange={this.updateRange.bind(this)} min="1" max="12"  value={this.range } class="slider" id="myRange" />
+                                  
+                    </div>
+                   
+                             
+                </div> 
+                             
+                <TransitionGroup className={"todo-list  row"}>
                     {this.state.News}
-                 </TransitionGroup>    
-            
-             <Page props={this} updater={this.SetBigNews.bind(this)}  />
+                </TransitionGroup>
             </div>
         )
     }

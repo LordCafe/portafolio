@@ -1,128 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import {Modal , Button } from 'react-bootstrap'
 
-
-let News = ({ title, content, author, url, urlToImage, click }) => {
-    let action =(e)=>{
-         e.preventDefault();
-         click();
-     };
-
-
-    return (
-        <div class='col-12 col-md-4 newscard '  style={{ display: 'inline-block'}} >                
-                <a href={ url } onClick={  action } style={{ width: '100%'}} >
-                    <div className={'NewsContent'}>
-                        <div className={'card'}>
-                             <img class="card-img-top " src={urlToImage} alt="Card image cap"/>
-                        </div>
-                        <div className={'info-bar'}>
-                            <div class="wrapper-title card-body transparency colorBlack"></div>
-                            <span class="card-title newsapi-title">{title}</span>    
-                        </div>                     
-                                               
-                    </div>
-                </a>
-        </div>
-
-    );
+let NewsApiResquest = ()=>{
+    let urlApiNewsApi = "https://newsapi.org/v2/top-headlines?country=us&apiKey=62d5413f833d4aa7808879f311bfeff7";
+    return fetch(urlApiNewsApi).then((response)=>{
+        return response.json()
+    });
 }
 
-
-let NewsMayor = ({ title, content, author, url, urlToImage }) => {
-    return (
-        <div class=' newsapi-card-mayor shadow-none '>               
-            <div class="card newsapiImage ">
-                <img class="card-img-top " src={urlToImage} alt="Card image cap"/>                          
-                <div class="wrapper-title card-body transparency colorBlack"></div>
-                 <h5 class="card-title newsapi-title">{title}</h5>
-            </div>
-                
-        </div>
-    );
-}
-
-
-let disableOverlay = (event, setOverlay, updater) => {
-    let { target: { dataset: { closed = false } } } = event;
-
-    if (closed !== false) {
-        updater(false, () => {
-            console.log("update");
-            setOverlay(false);
-        });
-    }else{
-        console.log("No update", event.target );
-    }
-}
-let realContent =(author, disableBigNews )=>{
+let NewsArticle =( props )=>{
+    let {title, description, url, urlToImage , updater = ()=>{}} = props;
+    let [ show , StatusShow ]  = useState(false );
     return(
-            <div className={'row nav-bignews'}>
-                <div className={'col-10  author '}>{author}</div>
-                <div className={'col-2 btn-group '}>
-                    <button type="button" class="btn btn-warning"  data-closed={ true } onClick={disableBigNews} >X</button>
-                </div>                                         
-            </div>
+        <div class="card" style={{ color: "black"}}>
+            <img class="card-img-top" src={urlToImage} alt="Card image cap" onClick={ ()=> updater(props, true) } />
+            <div class="card-body">
+                <h5  style={{'font-size': '15px'}} class="card-title font-Quick ">{title}</h5>
+                <p style={{ display: (show=== true )?'block': 'none'}} class="card-text font-Quick ">{ description }</p>
+                <a href={ url } class="btn btn-primary">read more </a>
+                 <a  class="btn btn-primary" onClick={()=>{ StatusShow( !show   ); }}>see </a>
+            </div>              
+        </div>    
     );
 }
 
-let BigNew = (props, setOverlay, updater) => {
-    let { author, content, title, urlToImage, url, description } = props.state.CurrentNews;
-    let disableBigNews = (event) => { 
-        disableOverlay(event, setOverlay, updater);
-    };
-    return (
-        <div id="overlay" class="container overlay ">
-            <div className={'row big-news'}>
-                    <div className={'col-12'} data-closed={ true } onClick={disableBigNews}>                 
-                        <div class="bigNew">
-                        {realContent(author, disableBigNews)}
-                        <div class="img-figure">                                                              
-                            <div class="card  ">
-                                <img class="card-img-top bigNews-Img " src={urlToImage} alt="Card image cap"/>        
-                            </div>
-                        </div>
+function ModalPop( {Current = false , showModal = false, control   } ) {  
+  const [show, setShow] = useState( showModal );
+  const handleClose = () => { setShow(false); control([], false )}
+  const handleShow = () =>{ setShow(true); }
+  useEffect((  )=>{
+    if(showModal){
+      handleShow();  
+    }
+    
+  },[showModal])  
 
-                        <div>
-                            <div className={'title-article'}>{ title }</div>
-                            <div className={"description"}><p>{ description }</p></div>
-                        </div>
-                        </div>                       
-                    </div>
-            </div>
-        </div>
-    );
+  return (
+      <Modal show={show} onHide={handleClose} animation={true}>
+        <Modal.Header closeButton>
+          <Modal.Title className={'title-modal-show font-Quick'} >{Current.title }</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>            
+           {NewsArticle( Current )} 
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+     );
 }
 
-
-function Page({ props, updater }) {
-    const [StatusOverlay, setOverlay] = useState(false);
-    let classEfect = 'effect-active dialog';
-    if (props.state.showBigNews && StatusOverlay === false) {
-        setOverlay(true);
-    }
-
-    let beginEffect = (e)=>{
-         document.documentElement.style.overflow = 'hidden';
-    }
-
-    let removeEfectt = (e)=>{
-        e.classList.toggle("effect-active");
-         document.documentElement.style.overflow = 'auto'; 
-    }
-    return (
-        <div  >
-            <CSSTransition in={ StatusOverlay } 
-                 timeout={ 350 }
-                 classNames={ classEfect } 
-                 data-status={ StatusOverlay }
-                 onEntered={ beginEffect}
-                 onExited={ removeEfectt }
-             >
-             {  BigNew( props, setOverlay, updater  ) }        
-            </CSSTransition>     
-        </div>
-    );
-}
-
-export { News, NewsMayor, Page };
+export { NewsApiResquest, NewsArticle , ModalPop  };
