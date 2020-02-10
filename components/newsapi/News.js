@@ -18,8 +18,10 @@ let NewsArticle =( props )=>{
             <div class="card-body">
                 <h5  style={{'font-size': '15px'}} class="card-title font-Quick ">{title}</h5>
                 <p style={{ display: (show=== true )?'block': 'none'}} class="card-text font-Quick ">{ description }</p>
-                <a href={ url } class="btn btn-primary">read more </a>
-                 <a  class="btn btn-primary" onClick={()=>{ StatusShow( !show   ); }}>see </a>
+                <div className={'buttons-links'} >
+                    <a href={ url } class="btn btn-primary">read more </a>
+                    <a  class="btn btn-primary" onClick={()=>{ StatusShow( !show   ); }}>see </a>
+                </div>
             </div>              
         </div>    
     );

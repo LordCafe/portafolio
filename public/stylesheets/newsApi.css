@@ -1,9 +1,7 @@
 :root {
     --button-color: #4893A9;
-    --main-txt-color: blue;
-    --main-padding: 15px;
-}
 
+}
 
 .NewsApi {
     height: 100px;
@@ -37,7 +35,6 @@
     width: 20%;
     text-align: center;
     vertical-align: middle;
-
     height: 50px;
 }
 
@@ -49,7 +46,6 @@
     text-align: center;
     vertical-align: middle;
     box-sizing: border-box;
-
 }
 
 .slidecontainer>input {
@@ -62,10 +58,18 @@
 
 .todo-list {
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .region-buttons {
     height: 100px;
+}
+
+.item-enter-done>.card {
+    height: 100%;
+    margin-top: 5px;
 }
 
 .region-buttons button {
@@ -80,10 +84,19 @@
     color: white;
 }
 
-
 .region-buttons>.btn.focus,
 .btn:focus {
     outline: 0;
     color: white;
     box-shadow: none;
+}
+
+/*Fix sm-*/
+
+.todo-list>.col-sm-1>.card>.card-body {
+    display: none;
+}
+
+.todo-list>.col-sm-* {
+    height: 500px;
 }
